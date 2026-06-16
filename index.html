@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VestAccs — Премиальные Telegram-аккаунты на физ. SIM</title>
+    <!-- Подключение Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Подключение шрифта Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0F172A;
+        }
+        /* Эффект Glassmorphism */
+        .glass {
+            background: rgba(30, 41, 59, 0.45);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+        }
+        .glass-premium {
+            background: linear-gradient(135deg, rgba(36, 161, 222, 0.1), rgba(30, 41, 59, 0.7));
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(36, 161, 222, 0.3);
+        }
+        /* Анимация переливающегося текста */
+        @keyframes textShimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .shimmer-text {
+            background: linear-gradient(90deg, #24A1DE, #60A5FA, #A78BFA, #24A1DE);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: textShimmer 4s linear infinite;
+        }
+        /* Кастомный стиль для стрелочек в FAQ */
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<body class="text-slate-200 min-h-screen flex flex-col justify-between overflow-x-hidden antialiased selection:bg-[#24A1DE]/30 selection:text-white">
+
+    <!-- Задний фон: Киберпанк-неон -->
+    <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[#24A1DE]/10 rounded-full blur-[140px] pointer-events-none"></div>
+    <div class="absolute top-[120vh] right-1/4 w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[160px] pointer-events-none"></div>
+    <div class="absolute bottom-[10vh] left-1/3 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[130px] pointer-events-none"></div>
+
+    <!-- 1. ШАПКА (Header) -->
+    <header class="sticky top-0 z-50 glass border-b border-white/5">
+        <div class="max-w-6xl mx-auto px-4 h-20 flex items-center justify-between">
+            <a href="https://t.me/VestAccsRobot" target="_blank" class="flex items-center gap-2 group">
+                <span class="text-2xl font-black tracking-wider text-white group-hover:text-[#24A1DE] transition-colors">
+                    VEST<span class="text-[#24A1DE]">ACCS</span>
+                </span>
+            </a>
+            
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
+                <a href="#features" class="hover:text-white transition-colors">Преимущества</a>
+                <a href="#pricing" class="hover:text-white transition-colors">Тарифы</a>
+                <a href="#payments" class="hover:text-white transition-colors">Оплата</a>
+                <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
+            </nav>
+            
+            <a href="https://t.me/VestAccsRobot" target="_blank" class="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-white rounded-xl group bg-gradient-to-br from-[#24A1DE] to-indigo-600 group-hover:from-[#24A1DE] group-hover:to-indigo-600 hover:text-white focus:ring-2 focus:outline-none focus:ring-[#24A1DE]">
+                <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-[#0F172A] rounded-xl group-hover:bg-opacity-0 font-semibold">
+                    Запустить бота
+                </span>
+            </a>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- 2. ГЛАВНЫЙ ЭКРАН (Hero) -->
+        <section class="max-w-5xl mx-auto px-4 pt-20 pb-16 text-center relative z-10">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/60 border border-white/10 text-xs font-semibold tracking-wide text-slate-300 mb-8 uppercase">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Чистые приватные прокси при регистрации
+            </div>
+            
+            <h1 class="text-4xl sm:text-5xl md:text-7xl font-black tracking-tight text-white mb-6 leading-[1.15]">
+                Надежные Telegram-аккаунты <br>
+                <span class="shimmer-text">на физических SIM-картах</span>
+            </h1>
+            
+            <p class="text-base sm:text-lg md:text-xl text-slate-400 max-w-3xl mx-auto mb-12 leading-relaxed">
+                Максимальный уровень траста и долговечности. Полная автоматизация: покупайте в 3 клика с моментальной автовыдачей форматов <code class="text-slate-200 bg-white/5 px-1.5 py-0.5 rounded font-mono text-sm">tdata</code> / <code class="text-slate-200 bg-white/5 px-1.5 py-0.5 rounded font-mono text-sm">.session</code>.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="https://t.me/VestAccsRobot" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white bg-[#24A1DE] hover:bg-[#1d82b5] rounded-xl transition-all duration-200 transform hover:-translate-y-0.5 shadow-[0_0_30px_rgba(36,161,222,0.3)] hover:shadow-[0_0_40px_rgba(36,161,222,0.5)]">
+                    Купить аккаунты
+                    <svg class="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                </a>
+                <a href="#faq" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-slate-300 bg-white/5 hover:bg-white/10 rounded-xl border border-white/10 transition-colors">
+                    Узнать больше
+                </a>
+            </div>
+        </section>
+
+        <!-- БЛОК СТАТИСТИКИ (Новый) -->
+        <section class="max-w-5xl mx-auto px-4 pb-24">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-8 rounded-2xl glass border border-white/5 text-center">
+                <div>
+                    <div class="text-2xl md:text-3xl font-black text-white">50k+</div>
+                    <div class="text-xs md:text-sm text-slate-400 mt-1">Проданных аккаунтов</div>
+                </div>
+                <div class="border-l border-white/5">
+                    <div class="text-2xl md:text-3xl font-black text-white">0%</div>
+                    <div class="text-xs md:text-sm text-slate-400 mt-1">Виртуальных номеров</div>
+                </div>
+                <div class="border-l border-white/5">
+                    <div class="text-2xl md:text-3xl font-black text-white">24/7</div>
+                    <div class="text-xs md:text-sm text-slate-400 mt-1">Автоматическая выдача</div>
+                </div>
+                <div class="border-l border-white/5">
+                    <div class="text-2xl md:text-3xl font-black text-white">&lt; 1 мин</div>
+                    <div class="text-xs md:text-sm text-slate-400 mt-1">Время ответа поддержки</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. БЛОК ПРЕИМУЩЕСТВ -->
+        <section id="features" class="max-w-6xl mx-auto px-4 pb-28 scroll-mt-24">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-extrabold text-white mb-4">Почему выбирают VestAccs?</h2>
+                <p class="text-slate-400 max-w-xl mx-auto">Мы создаем аккаунты, которые живут долго и выдерживают любые бизнес-нагрузки.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Карточка 1 -->
+                <div class="glass p-8 rounded-2xl hover:border-[#24A1DE]/40 transition-all duration-300 group">
+                    <div class="w-12 h-12 rounded-xl bg-[#24A1DE]/10 flex items-center justify-center text-[#24A1DE] mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Только физические SIM</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Никакого виртуального мусора (VoIP). Используем только реальные сим-карты, что исключает риск повторной продажи или внезапного отзыва номера оператором.
+                    </p>
+                </div>
+
+                <!-- Карточка 2 -->
+                <div class="glass p-8 rounded-2xl hover:border-[#24A1DE]/40 transition-all duration-300 group">
+                    <div class="w-12 h-12 rounded-xl bg-[#24A1DE]/10 flex items-center justify-center text-[#24A1DE] mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Высокий траст к банам</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Качественная профессиональная отлёжка и правильный органический прогрев. Алгоритмы Telegram максимально лояльны к нашим аккаунтам.
+                    </p>
+                </div>
+
+                <!-- Карточка 3 -->
+                <div class="glass p-8 rounded-2xl hover:border-[#24A1DE]/40 transition-all duration-300 group">
+                    <div class="w-12 h-12 rounded-xl bg-[#24A1DE]/10 flex items-center justify-center text-[#24A1DE] mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Моментальная автовыдача</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Полностью автоматизированный процесс. Бот отправляет ссылки на скачивание архивов с данными моментально после фиксации вашей оплаты.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. БЛОК ЦЕН (Тарифы) -->
+        <section id="pricing" class="max-w-4xl mx-auto px-4 pb-28 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold text-white mb-4">Доступные гео-позиции</h2>
+                <p class="text-slate-400">Выберите подходящее ГЕО под ваши цели и задачи</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto">
+                <!-- Карточка товара: США -->
+                <div class="glass rounded-2xl p-8 flex flex-col justify-between hover:scale-[1.02] transition-transform duration-200">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <span class="text-xs font-semibold text-[#24A1DE] uppercase tracking-wider">GEO</span>
+                                <h3 class="text-2xl font-bold text-white mt-1">США (USA)</h3>
+                            </div>
+                            <span class="text-3xl">🇺🇸</span>
+                        </div>
+                        <p class="text-slate-400 text-sm mb-6">Отличный бюджетный вариант для массовых рассылок, парсинга и инвайтинга по всему миру.</p>
+                        <div class="border-t border-white/5 pt-4 mb-8">
+                            <span class="text-3xl font-black text-white">25 ₽</span>
+                            <span class="text-slate-500 text-sm"> / шт</span>
+                        </div>
+                    </div>
+                    <a href="https://t.me/VestAccsRobot" target="_blank" class="w-full text-center bg-white/5 hover:bg-white/10 text-white font-semibold py-3.5 px-4 rounded-xl border border-white/10 transition-colors">
+                        Купить в боте
+                    </a>
+                </div>
+
+                <!-- Карточка товара: Россия (Контрастная) -->
+                <div class="glass rounded-2xl p-8 border-2 border-[#24A1DE] relative flex flex-col justify-between hover:scale-[1.02] transition-transform duration-200 shadow-[0_0_40px_rgba(36,161,222,0.15)]">
+                    <div class="absolute -top-3.5 left-1/2 transform -translate-x-1/2 bg-[#24A1DE] text-white text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-widest">
+                        Хит продаж
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <span class="text-xs font-semibold text-[#24A1DE] uppercase tracking-wider">GEO</span>
+                                <h3 class="text-2xl font-bold text-white mt-1">Россия (RU)</h3>
+                            </div>
+                            <span class="text-3xl">🇷🇺</span>
+                        </div>
+                        <p class="text-slate-400 text-sm mb-6">Максимальный уровень траста, долгая глубокая отлёжка. Идеально подходят под СНГ приватные каналы, чаты и администрирование.</p>
+                        <div class="border-t border-white/5 pt-4 mb-8">
+                            <span class="text-3xl font-black text-white">150 ₽</span>
+                            <span class="text-slate-500 text-sm"> / шт</span>
+                        </div>
+                    </div>
+                    <a href="https://t.me/VestAccsRobot" target="_blank" class="w-full text-center bg-[#24A1DE] hover:bg-[#1d82b5] text-white font-semibold py-3.5 px-4 rounded-xl transition-colors shadow-[0_4px_14px_rgba(36,161,222,0.4)]">
+                        Купить в боте
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- БЛОК СПОСОБОВ ОПЛАТЫ (Новый) -->
+        <section id="payments" class="max-w-4xl mx-auto px-4 pb-28 scroll-mt-24">
+            <div class="glass-premium rounded-3xl p-8 md:p-12 text-center relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-[#24A1DE]/20 rounded-full blur-3xl pointer-events-none"></div>
+                
+                <h2 class="text-2xl md:text-3xl font-extrabold text-white mb-4">Удобные способы оплаты</h2>
+                <p class="text-slate-300 max-w-xl mx-auto mb-10 text-sm md:text-base">
+                    Пополнение баланса в личном кабинете бота происходит полностью автоматически. Мы интегрировали лучшие платежные шлюзы для вашего удобства:
+                </p>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
+                    <!-- Crypto Bot -->
+                    <div class="bg-[#0F172A]/80 border border-white/5 rounded-2xl p-5 flex flex-col items-center justify-center">
+                        <div class="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-400 mb-3 text-xl font-bold">🤖</div>
+                        <span class="text-white font-semibold text-sm">Crypto Bot</span>
+                        <span class="text-xs text-slate-500 mt-1">USDT, TON, BTC, NOT</span>
+                    </div>
+                    <!-- СБП -->
+                    <div class="bg-[#0F172A]/80 border border-white/5 rounded-2xl p-5 flex flex-col items-center justify-center">
+                        <div class="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-400 mb-3 text-xl font-bold">📲</div>
+                        <span class="text-white font-semibold text-sm">СБП</span>
+                        <span class="text-xs text-slate-500 mt-1">Любые банки РФ (0% комиссии)</span>
+                    </div>
+                    <!-- Telegram Stars -->
+                    <div class="bg-[#0F172A]/80 border border-white/5 rounded-2xl p-5 flex flex-col items-center justify-center">
+                        <div class="w-10 h-10 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-400 mb-3 text-xl font-bold">⭐</div>
+                        <span class="text-white font-semibold text-sm">Telegram Stars</span>
+                        <span class="text-xs text-slate-500 mt-1">Прямо внутри приложения</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- БЛОК FAQ (Новый, Интерактивный без JS) -->
+        <section id="faq" class="max-w-3xl mx-auto px-4 pb-28 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold text-white mb-4">Часто задаваемые вопросы</h2>
+                <p class="text-slate-400">Все, что нужно знать об аккаунтах перед покупкой</p>
+            </div>
+            
+            <div class="space-y-4">
+                <!-- Вопрос 1 -->
+                <details class="glass rounded-xl border border-white/5 overflow-hidden group">
+                    <summary class="flex items-center justify-between p-6 cursor-pointer select-none focus:outline-none">
+                        <span class="font-semibold text-white group-hover:text-[#24A1DE] transition-colors pr-4">В каком формате я получу аккаунты?</span>
+                        <span class="text-slate-400 group-open:rotate-180 transition-transform duration-200">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </span>
+                    </summary>
+                    <div class="px-6 pb-6 text-sm text-slate-400 leading-relaxed border-t border-white/5 pt-4">
+                        Аккаунты выдаются в виде ZIP-архивов, содержащих форматы <strong class="text-white">tdata</strong> (для запуска на ПК через официальный Telegram Desktop) и <strong class="text-white">.session</strong> (для использования в софте для автоматизации: инвайтеры, спамеры, парсеры).
+                    </div>
+                </details>
+
+                <!-- Вопрос 2 -->
+                <details class="glass rounded-xl border border-white/5 overflow-hidden group">
+                    <summary class="flex items-center justify-between p-6 cursor-pointer select-none focus:outline-none">
+                        <span class="font-semibold text-white group-hover:text-[#24A1DE] transition-colors pr-4">Есть ли гарантия на замену невалида?</span>
+                        <span class="text-slate-400 group-open:rotate-180 transition-transform duration-200">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </span>
+                    </summary>
+                    <div class="px-6 pb-6 text-sm text-slate-400 leading-relaxed border-t border-white/5 pt-4">
+                        Да, мы предоставляем 20-минутную гарантию с момента покупки на проверку валидности аккаунтов. Если аккаунт заблокирован до вашей авторизации — бот автоматически заменит его или вернет средства на баланс.
+                    </div>
+                </details>
+
+                <!-- Вопрос 3 -->
+                <details class="glass rounded-xl border border-white/5 overflow-hidden group">
+                    <summary class="flex items-center justify-between p-6 cursor-pointer select-none focus:outline-none">
+                        <span class="font-semibold text-white group-hover:text-[#24A1DE] transition-colors pr-4">Какая отлёжка у ваших аккаунтов?</span>
+                        <span class="text-slate-400 group-open:rotate-180 transition-transform duration-200">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </span>
+                    </summary>
+                    <div class="px-6 pb-6 text-sm text-slate-400 leading-relaxed border-t border-white/5 pt-4">
+                        Все аккаунты проходят строгую технологическую отлёжку: для ГЕО США это минимум от 7 до 14 дней, для ГЕО Россия — от 21 дня и более. Это гарантирует максимальную устойчивость.
+                    </div>
+                </details>
+
+                <!-- Вопрос 4 -->
+                <details class="glass rounded-xl border border-white/5 overflow-hidden group">
+                    <summary class="flex items-center justify-between p-6 cursor-pointer select-none focus:outline-none">
+                        <span class="font-semibold text-white group-hover:text-[#24A1DE] transition-colors pr-4">Какие прокси использовать для работы?</span>
+                        <span class="text-slate-400 group-open:rotate-180 transition-transform duration-200">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </span>
+                    </summary>
+                    <div class="px-6 pb-6 text-sm text-slate-400 leading-relaxed border-t border-white/5 pt-4">
+                        Мы настоятельно рекомендуем использовать качественные приватные резидентские или мобильные прокси того же ГЕО, что и купленный аккаунт. Использование бесплатных/паблик IPv4 прокси ведет к мгновенному бану со стороны Telegram.
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <!-- ФИНАЛЬНЫЙ СТА (Новый) -->
+        <section class="max-w-4xl mx-auto px-4 pb-28 text-center relative z-10">
+            <div class="glass p-12 rounded-3xl border border-white/5 flex flex-col items-center shadow-[0_0_50px_rgba(0,0,0,0.3)]">
+                <h2 class="text-3xl md:text-4xl font-black text-white mb-4">Готовы масштабировать свой бизнес?</h2>
+                <p class="text-slate-400 max-w-xl mx-auto mb-8 text-sm md:text-base">Запустите нашего Telegram-бота, выберите ГЕО и получите проверенные аккаунты уже через минуту.</p>
+                <a href="https://t.me/VestAccsRobot" target="_blank" class="px-10 py-4 text-base font-bold text-white bg-[#24A1DE] hover:bg-[#1d82b5] rounded-xl transition-all duration-200 shadow-[0_0_30px_rgba(36,161,222,0.3)] hover:shadow-[0_0_40px_rgba(36,161,222,0.5)] flex items-center gap-2">
+                    Перейти к покупке
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- 5. ФУТЕР -->
+    <footer class="border-t border-white/5 bg-[#0B1222] py-8 z-10 relative">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="text-sm text-slate-500">
+                &copy; 2026 <span class="text-slate-400 font-semibold">VestAccs</span>. Все права защищены.
+            </div>
+            <div class="flex items-center gap-6">
+                <a href="https://t.me/VestAccsRobot" target="_blank" class="text-sm text-slate-400 hover:text-[#24A1DE] transition-colors flex items-center gap-1.5">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.017c.24-.213-.054-.334-.373-.12l-6.869 4.325-2.962-.924c-.643-.204-.658-.643.136-.953l11.57-4.46c.538-.196 1.006.128.832.975z"/>
+                    </svg>
+                    @VestAccsRobot
+                </a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
