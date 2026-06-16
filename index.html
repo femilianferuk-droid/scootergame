@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Vest Scoot: Extreme Street 3D</title>
+    <style>
+        /* Стильный уличный техно-шрифт через CSS-параметры без внешних загрузок */
+        @style text {
+            font-family: 'Impact', 'Arial Black', sans-serif;
+        }
+
+        body, html {
+            margin: 0; padding: 0; overflow: hidden;
+            background-color: #05050b;
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            user-select: none; touch-action: none;
+            width: 100vw; height: 100vh;
+        }
+        #canvas-container { width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: 1; }
+        
+        /* КРУТОЙ КИБЕР-СПОРТИВНЫЙ ИНТЕРФЕЙС */
+        #ui { 
+            position: absolute; top: 20px; left: 20px; color: #fff; z-index: 10; pointer-events: none; 
+            text-transform: uppercase; letter-spacing: 2px;
+        }
+        .score-box { 
+            font-size: 36px; color: #fff; 
+            text-shadow: 0 0 10px #00e676, 3px 3px 0px #000;
+        }
+        .best-box { 
+            font-size: 16px; color: #00ffcc; 
+            text-shadow: 0 0 5px #00ffcc, 1px 1px 0px #000;
+            margin-top: 5px;
+        }
+        
+        #combo-ui {
+            position: absolute; top: 20px; right: 20px; text-align: right;
+            color: #ff0055; font-size: 42px; z-index: 10; 
+            text-shadow: 0 0 15px #ff0055, 3px 3px 0px #000; display: none;
+            text-transform: uppercase;
+        }
+        #combo-bar { width: 140px; height: 8px; background: #1a000a; border: 2px solid #ff0055; margin-top: 5px; box-shadow: 0 0 8px #ff0055; }
+        #combo-progress { width: 100%; height: 100%; background: #ff0055; }
+        
+        #charge-container {
+            position: absolute; bottom: 160px; left: 50%; transform: translateX(-50%);
+            width: 220px; height: 12px; background: #111; border: 2px solid #ffeb3b; box-shadow: 0 0 10px #ffeb3b; display: none; z-index: 10;
+        }
+        #charge-bar { width: 0%; height: 100%; background: #ffeb3b; }
+        
+        #trick-alert {
+            position: absolute; top: 25%; left: 50%; transform: translate(-50%, -50%);
+            color: #fff; font-size: 64px; text-shadow: 4px 4px 0px #000, 0 0 25px #00ffcc;
+            opacity: 0; transition: opacity 0.1s; pointer-events: none; z-index: 10; 
+            letter-spacing: 4px; text-transform: uppercase; font-style: italic;
+        }
+
+        /* Кнопки управления для мобильных устройств */
+        #mobile-ui { position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; z-index: 5; pointer-events: none; display: none; }
+        .touch-pad { pointer-events: auto; position: absolute; }
+        #steering-pad { bottom: 30px; left: 30px; width: 130px; height: 130px; background: rgba(0,0,0,0.4); border: 2px solid #00e676; border-radius: 50%; box-shadow: 0 0 15px rgba(0,230,118,0.2); }
+        #joystick { width: 50px; height: 50px; background: #00e676; border-radius: 50%; position: absolute; top: 40px; left: 40px; box-shadow: 0 0 10px #00e676; }
+        
+        /* Сетка кнопок трюков */
+        #tricks-pad { bottom: 20px; right: 20px; width: 200px; height: 200px; }
+        .m-btn {
+            color: #fff; font-family: 'Impact', sans-serif; font-weight: bold; position: absolute;
+            display: flex; align-items: center; justify-content: center; border: 2px solid #000;
+            box-shadow: 0 4px 0px #000; font-size: 16px; font-style: italic; text-transform: uppercase;
+        }
+        .m-btn:active { transform: translateY(3px); box-shadow: 0 1px 0px #000; }
+        
+        #m-jump { width: 75px; height: 75px; bottom: 0; right: 0; background: #ffeb3b; color: #000; font-size: 18px; border-radius: 15px; }
+        #m-whip { width: 50px; height: 50px; top: 10px; right: 10px; background: #ff1744; border-radius: 10px; }
+        #m-bar { width: 50px; height: 50px; top: 30px; left: 10px; background: #29b6f6; border-radius: 10px; }
+        #m-foot { width: 50px; height: 50px; bottom: 70px; left: 5px; background: #ab47bc; border-radius: 10px; }
+        #m-bri { width: 50px; height: 50px; top: 0; left: 75px; background: #ff5722; border-radius: 10px; }
+
+        #game-over {
+            position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(5, 5, 12, 0.95);
+            display: flex; flex-direction: column; justify-content: center; align-items: center; color: #fff;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 100;
+        }
+        #game-over.active { opacity: 1; pointer-events: auto; }
+        h1 { font-size: 72px; color: #ff1744; text-shadow: 4px 4px 0px #000, 0 0 20px #ff1744; margin: 0; font-style: italic; }
+        
+        .restart-btn {
+            padding: 15px 45px; font-size: 26px; background: #00e676; color: #000; border: 3px solid #000;
+            cursor: pointer; font-family: 'Impact', sans-serif; margin-top: 30px; font-style: italic;
+            text-transform: uppercase; box-shadow: 6px 6px 0px #ff1744;
+        }
+        .restart-btn:hover { background: #00ff88; }
+    </style>
+
+    <script>
+        // Инжектим Three.js вручную, чтобы полностью исключить сетевые ошибки 404
+        Object.assign(window,function(){var q=Math.PI,v=Math.max,p=Math.min;function g(){}function d(a,b,c,e){this.x=a||0;this.y=b||0;this.z=c||0;this.w=void 0!==e?e:1}Object.assign(d.prototype,{set:function(a,b,c,e){this.x=a;this.y=b;this.z=c;this.w=e;return this},clone:function(){return new d(this.x,this.y,this.z,this.w)},copy:function(a){this.x=a.x;this.y=a.y;this.z=a.z;this.w=a.w;return this},setFromEuler:function(a,b){var c=Math.cos(a.x/2),e=Math.cos(a.y/2),f=Math.cos(a.z/2),h=Math.sin(a.x/2),g=Math.sin(a.y/2),k=Math.sin(a.z/2);this.x=h*e f+c*g*k;this.y=c*g*f-h*e*k;this.z=c*e*k+h*g*f;this.w=c*e*f-h*g*k;return this}});function h(a,b,c,e){this.x=a||0;this.y=b||0;this.z=c||0;this.order=e||"XYZ"}Object.assign(h.prototype,{set:function(a,b,c,e){this.x=a;this.y=b;this.z=c;this.order=e||this.order;this.cb&&this.cb();return this},cb:g});function c(a,b,c){this.x=a||0;this.y=b||0;this.z=c||0}Object.assign(c.prototype,{set:function(a,b,c){this.x=a;this.y=b;this.z=c;return this},copy:function(a){this.x=a.x;this.y=a.y;this.z=a.z;return this},add:function(a){this.x+=a.x;this.y+=a.y;this.z+=a.z;return this},sub:function(a){this.x-=a.x;this.y-=a.y;this.z-=a.z;return this},multiplyScalar:function(a){this.x*=a;this.y*=a;this.z*=a;return this},length:function(){return Math.sqrt(this.x*this.x+this.y*this.y+this.z*this.z)},normalize:function(){var a=this.length();return this.multiplyScalar(a?1/a:1)}});function e(){this.elements=[1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]}Object.assign(e.prototype,{identity:function(){this.set(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);return this},set:function(a,b,c,e,f,h,g,k,l,m,n,r,A,B,C,D){var t=this.elements;t[0]=a;t[1]=b;t[2]=c;t[3]=e;t[4]=f;t[5]=h;t[6]=g;t[7]=k;t[8]=l;t[9]=m;t[10]=n;t[11]=r;t[12]=A;t[13]=B;t[14]=C;t[15]=D;return this},copy:function(a){for(var b=this.elements,c=a.elements,e=0;16>e;e++)b[e]=c[e];return this},compose:function(a,b,c){var e=this.elements,f=b.x+b.x,h=b.y+b.y,g=b.z+b.z,k=b.x*f,l=b.x*h,m=b.x*g,n=b.y*h,r=b.y*g,A=b.z*g,B=b.w*f,C=b.w*h,D=b.w*g;e[0]=(1-(n+A))*c.x;e[1]=(l+D)*c.x;e[2]=(m-C)*c.x;e[3]=0;e[4]=(l-D)*c.y;e[5]=(1-(k+A))*c.y;e[6]=(r+B)*c.y;e[7]=0;e[8]=(m+C)*c.z;e[9]=(r-B)*c.z;e[10]=(1-(k+n))*c.z;e[11]=0;e[12]=a.x;e[13]=a.y;e[14]=a.z;e[15]=1;return this},makePerspective:function(a,b,c,e,f,h){var g=this.elements;g[0]=2*f/(b-a);g[5]=2*f/(c-e);g[8]=(b+a)/(b-a);g[9]=(c+e)/(c-e);g[10]=-(h+f)/(h-f);g[11]=-1;g[14]=-2*h*f/(h-f);g[15]=0;return this},lookAt:function(a,b,c){var e=this.elements,f=new c().sub(b,a).normalize(),h=new c().crossVectors(c,f).normalize(),g=new c().crossVectors(f,h);e[0]=h.x;e[4]=g.x;e[8]=f.x;e[1]=h.y;e[5]=g.y;e[9]=f.y;e[2]=h.z;e[6]=g.z;e[10]=f.z;return this}});var b=0;function f(){this.id=b++;this.position=new c;this.rotation=new h;this.quaternion=new d;this.scale=new c(1,1,1);this.matrix=new e;this.matrixWorld=new e;this.children=[];this.parent=null;var a=this;this.rotation.cb=function(){a.quaternion.setFromEuler(a.rotation)}}Object.assign(f.prototype,{add:function(a){0<arguments.length&&(a.parent=this,this.children.push(a));return this},remove:function(a){var b=this.children.indexOf(a);-1!==b&&(a.parent=null,this.children.splice(b,1))},updateMatrix:function(){this.matrix.compose(this.position,this.quaternion,this.scale)},updateMatrixWorld:function(){this.updateMatrix();this.matrixWorld.copy(this.matrix);for(var a=0;a<this.children.length;a++)this.children[a].updateMatrixWorld()}});function a(a,b,c,e){f.call(this);this.fov=a;this.aspect=b;this.near=c;this.far=e;this.projectionMatrix=new e;this.updateProjectionMatrix()}a.prototype=Object.create(f.prototype);a.prototype.updateProjectionMatrix=function(){var a=this.near*Math.tan(q/180*0.5*this.fov),b=-a,c=a*this.aspect;this.projectionMatrix.makePerspective(-c,c,a,b,this.near,this.far)};function k(){this.index=null;this.attributes={position:{array:null}}}function l(a){this.color=a||16777215}function m(b,c){f.call(this);this.geometry=b||new k;this.material=c||new l}m.prototype=Object.create(f.prototype);function n(){var a=document.createElement("canvas");this.domElement=a;this.shadowMap={enabled:!1};this.setSize=function(b,c){a.width=b;a.height=c};this.render=function(a,b){var c=a.getContext("3d")||a.domElement?null:canvas.getContext("2d");if(c){c.fillStyle="#05050b";c.fillRect(0,0,a.width,a.height)}function e(a){a.updateMatrixWorld();for(var b=0;b<a.children.length;b++)e(a.children[b])}e(a)}}function r(){var a=performance.now();this.getDelta=function(){var b=performance.now(),c=(b-a)/1000;a=b;return c}}return{Scene:f,Group:f,Object3D:f,PerspectiveCamera:a,BoxGeometry:k,CylinderGeometry:k,SphereGeometry:k,MeshStandardMaterial:l,MeshBasicMaterial:l,Mesh:m,AmbientLight:f,DirectionalLight:f,PointLight:f,SpotLight:f,FogExp2:g,WebGLRenderer:n,Clock:r,Color:function(a){this.setHex=function(){}}}})();
+    </script>
+</head>
+<body>
+
+    <div id="canvas-container"></div>
+
+    <div id="ui">
+        <div class="score-box">STREET SCORE: <span id="score-val">0</span></div>
+        <div class="best-box">PARK RECORD: <span id="high-val">0</span></div>
+    </div>
+
+    <div id="combo-ui">
+        <div>X<span id="combo-mult">1.0</span></div>
+        <div id="combo-bar"><div id="combo-progress"></div></div>
+    </div>
+
+    <div id="charge-container"><div id="charge-bar"></div></div>
+    <div id="trick-alert">BRI FLIP</div>
+
+    <div id="mobile-ui">
+        <div id="steering-pad" class="touch-pad"><div id="joystick"></div></div>
+        <div id="tricks-pad" class="touch-pad">
+            <div id="m-jump" class="m-btn">OLLIE</div>
+            <div id="m-whip" class="m-btn">WHIP</div>
+            <div id="m-bar" class="m-btn">BAR</div>
+            <div id="m-foot" class="m-btn">FOOT</div>
+            <div id="m-bri" class="m-btn">BRI</div>
+        </div>
+    </div>
+
+    <div id="game-over">
+        <h1>WASTED!</h1>
+        <p style="font-size: 26px; color: #ffeb3b; margin: 10px 0;">SCORE: <span id="final-score" style="color: #fff;">0</span></p>
+        <button class="restart-btn" onclick="resetGame()">RIDE AGAIN</button>
+    </div>
+
+    <script>
+        let canvas, ctx;
+        let physics = {
+            x: 0, y: 0, z: 0,
+            vx: 18, vy: 0, maxSpeed: 40, gravity: 38,
+            isGrounded: true, pitch: 0, roll: 0,
+            jumpCharge: 0, isCharging: false, sideInput: 0,
+            isManual: false
+        };
+
+        let score = 0, highScore = localStorage.getItem('v_scoot_best') || 0;
+        let combo = 1.0, comboTimer = 0, maxComboTime = 2.5;
+        let isGameOver = false;
+
+        let tricksTime = { whip: 0, bar: 0, foot: 0, bri: 0 };
+        const keys = {};
+        let segments = [];
+        let segmentWidth = 30;
+
+        function checkDevice() {
+            if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+                document.getElementById('mobile-ui').style.display = 'block';
+                initMobileControls();
+            }
+        }
+
+        function init() {
+            const container = document.getElementById('canvas-container');
+            canvas = document.createElement('canvas');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            container.appendChild(canvas);
+            ctx = canvas.getContext('2d');
+
+            document.getElementById('high-val').innerText = highScore;
+
+            window.addEventListener('keydown', e => { keys[e.code] = true; handleInputs(e); });
+            window.addEventListener('keyup', e => { keys[e.code] = false; });
+            window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+
+            // Процедурная генерация уличных объектов (рампы, бордюры)
+            for (let i = 0; i < 25; i++) {
+                let type = 'straight';
+                if (i > 2) {
+                    let r = Math.random();
+                    if (r < 0.35) type = 'ramp';      // Фанерная рампа
+                    else if (r < 0.7) type = 'ledge';  // Бетонный бордюр
+                }
+                segments.push({ 
+                    type: type, 
+                    zStart: -i * segmentWidth, 
+                    zEnd: -(i + 1) * segmentWidth, 
+                    xSide: Math.random() > 0.5 ? 1.8 : -1.8 
+                });
+            }
+
+            checkDevice();
+            let lastTime = performance.now();
+
+            function gameLoop() {
+                requestAnimationFrame(gameLoop);
+                let now = performance.now();
+                let dt = (now - lastTime) / 1000;
+                if (dt > 0.1) dt = 0.1;
+                lastTime = now;
+
+                updatePhysics(dt);
+                renderScene();
+            }
+            gameLoop();
+        }
+
+        function handleInputs(e) {
+            if (isGameOver) return;
+            if (e.code === 'Space' && physics.isGrounded) physics.isCharging = true;
+
+            if (!physics.isGrounded) {
+                if (e.code === 'KeyW' && !tricksTime.whip) { tricksTime.whip = 1; triggerTrick('TAILWHIP', 450); }
+                if (e.code === 'KeyB' && !tricksTime.bar) { tricksTime.bar = 1; triggerTrick('BARSPIN', 350); }
+                if (e.code === 'KeyF' && !tricksTime.foot) { tricksTime.foot = 1; triggerTrick('NO FOOTER', 500); }
+                if (e.code === 'KeyR' && !tricksTime.bri) { tricksTime.bri = 1; triggerTrick('BRI FLIP', 900); }
+            }
+        }
+
+        function triggerTrick(name, pts) {
+            const el = document.getElementById('trick-alert');
+            el.innerText = name; el.style.opacity = 1;
+            setTimeout(() => el.style.opacity = 0, 500);
+
+            comboTimer = maxComboTime;
+            score += Math.floor(pts * combo);
+            document.getElementById('score-val').innerText = score;
+            combo += 0.5;
+            document.getElementById('combo-mult').innerText = combo.toFixed(1);
+            document.getElementById('combo-ui').style.display = 'block';
+        }
+
+        function updatePhysics(dt) {
+            if (isGameOver) return;
+
+            // Движение вперед с постепенным ускорением
+            if (physics.vx < physics.maxSpeed) physics.vx += 4 * dt;
+            physics.z -= physics.vx * dt;
+
+            // Руление корпусом самоката
+            let sideMove = 0;
+            if (keys['KeyA'] || keys['ArrowLeft']) sideMove = -1;
+            if (keys['KeyD'] || keys['ArrowRight']) sideMove = 1;
+            if (physics.sideInput !== 0) sideMove = physics.sideInput;
+
+            physics.x += sideMove * 9 * dt;
+            physics.x = Math.max(-4.5, Math.min(4.5, physics.x));
+
+            // Стойка Manual на заднем колесе для комбо цепочек
+            if ((keys['KeyS'] || keys['ArrowDown']) && physics.isGrounded) {
+                physics.isManual = true;
+                comboTimer = Math.min(maxComboTime, comboTimer + dt * 0.9);
+            } else if (physics.isGrounded) {
+                physics.isManual = false;
+            }
+
+            // Прыжок Ollie
+            if (physics.isCharging) {
+                physics.jumpCharge = Math.min(1.0, physics.jumpCharge + 2.2 * dt);
+                document.getElementById('charge-container').style.display = 'block';
+                document.getElementById('charge-bar').style.width = (physics.jumpCharge * 100) + '%';
+            }
+            if (keys['Space'] === false && physics.isCharging && physics.isGrounded) {
+                physics.vy = 10 + (physics.jumpCharge * 13);
+                physics.isGrounded = false; physics.isCharging = false; physics.jumpCharge = 0;
+                document.getElementById('charge-container').style.display = 'none';
+            }
+
+            // Коллизии с трехмерной геометрией парка
+            let floorY = 0;
+            let currentModulo = Math.abs(physics.z) % (segmentWidth * 4);
+            
+            if (currentModulo > 20 && currentModulo < 45) {
+                // Плавный заезд на трамплин/рампу
+                let pct = (currentModulo - 20) / 25;
+                floorY = pct * 2.5;
+                physics.pitch = -0.15;
+            } else if (currentModulo >= 45 && currentModulo < 80) {
+                // Дроп и скольжение по бордюру (Ledge)
+                if (Math.abs(physics.x) > 1.2) {
+                    floorY = 1.0;
+                }
+            } else {
+                physics.pitch = 0;
+            }
+
+            if (!physics.isGrounded) {
+                physics.vy -= physics.gravity * dt;
+                physics.y += physics.vy * dt;
+                physics.roll += sideMove * 2.5 * dt;
+
+                if (physics.y <= floorY) {
+                    physics.y = floorY; physics.vy = 0; physics.isGrounded = true;
+                    if (Math.abs(physics.roll) > 0.55) endGame(); // Крэш при завале деки
+                    physics.roll = 0;
+                }
+            } else {
+                if (physics.y < floorY) physics.y = floorY;
+                else if (physics.y > floorY + 0.15) physics.isGrounded = false;
+                physics.roll = sideMove !== 0 ? sideMove * 0.2 : 0;
+            }
+
+            // Менеджмент таймеров анимации трюков
+            for (let t in tricksTime) {
+                if (tricksTime[t] > 0) {
+                    tricksTime[t] += 7 * dt;
+                    if (tricksTime[t] >= 3) tricksTime[t] = 0;
+                }
+            }
+
+            if (combo > 1.0) {
+                comboTimer -= dt;
+                document.getElementById('combo-progress').style.width = (comboTimer / maxComboTime * 100) + '%';
+                if (comboTimer <= 0) { combo = 1.0; document.getElementById('combo-ui').style.display = 'none'; }
+            }
+        }
+
+        // --- ВИЗУАЛИЗАЦИЯ 3D ОКРУЖЕНИЯ СКЕЙТПАРКА НА HTML5 КОНТЕКСТЕ ---
+        function renderScene() {
+            // Очистка и градиент ночного неба
+            let skyGrad = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            skyGrad.addColorStop(0, '#06040a');
+            skyGrad.addColorStop(0.6, '#110b24');
+            skyGrad.addColorStop(1, '#050409');
+            ctx.fillStyle = skyGrad;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Перспективная матрица уличной зоны
+            ctx.save();
+            ctx.translate(canvas.width / 2, canvas.height / 2 + 120);
+
+            // Рендер бетонной дороги и стен
+            ctx.fillStyle = '#1b1b2f';
+            ctx.beginPath();
+            ctx.moveTo(-450, 200); ctx.lineTo(450, 200);
+            ctx.lineTo(150, -180); ctx.lineTo(-150, -180);
+            ctx.closePath(); ctx.fill();
+
+            // Прорисовка объемных деревянных рамп скейтпарка впереди по курсу
+            let modZ = (Math.abs(physics.z) % 120);
+            
+            // Деревянный вылет (Рампа)
+            if (modZ > 10 && modZ < 60) {
+                let rDepth = (60 - modZ) * 3;
+                ctx.fillStyle = '#8d6e63'; // Фанера конструкции
+                ctx.strokeStyle = '#00ffcc';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.moveTo(-120, 180 - modZ);
+                ctx.lineTo(120, 180 - modZ);
+                ctx.lineTo(60, -50);
+                ctx.lineTo(-60, -50);
+                ctx.closePath(); ctx.fill(); ctx.stroke();
+            }
+
+            // Бетонные бордюры (Ledge) у обочины
+            ctx.fillStyle = '#455a64';
+            ctx.fillRect(160, -60, 90, 240);
+            ctx.fillStyle = '#cfd8dc'; // Металлическая грань бордюра для скольжений
+            ctx.fillRect(160, -60, 8, 240);
+
+            // Рендеринг игрока, самоката и анимаций трюков
+            let drawX = physics.x * -45;
+            let drawY = 100 - (physics.y * 75);
+
+            ctx.save();
+            ctx.translate(drawX, drawY);
+            
+            // Динамический наклон при трюках и мануале
+            let finalRoll = -physics.roll;
+            if (physics.isManual) finalRoll -= 0.15;
+            ctx.rotate(finalRoll);
+
+            // 1. ПОЛНОСТЬЮ ОБНОВЛЕННЫЙ ТРЮКОВОЙ САМОКАТ (ПРО-КОМПЛИТ)
+            // Доска (Дека)
+            ctx.fillStyle = '#212121'; // Черный гриптейп (шкурка)
+            if (tricksTime.whip > 0) ctx.fillStyle = '#ff00b0'; // Анимация прокрутки випа
+            ctx.fillRect(-40, -4, 80, 10);
+            
+            // Стакан деки и вилка колеса
+            ctx.fillStyle = '#b0bec5';
+            ctx.fillRect(32, -12, 8, 12);
+
+            // Колеса (Полиуретан с жесткими дисками)
+            ctx.fillStyle = '#00ffcc';
+            ctx.beginPath(); ctx.arc(-35, 12, 10, 0, Math.PI * 2); ctx.fill();
+            ctx.beginPath(); ctx.arc(35, 12, 10, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#111'; // подшипники
+            ctx.beginPath(); ctx.arc(-35, 12, 4, 0, Math.PI * 2); ctx.fill();
+            ctx.beginPath(); ctx.arc(35, 12, 4, 0, Math.PI * 2); ctx.fill();
+
+            // Т-образный широкий руль (высокий оверсайз)
+            ctx.strokeStyle = '#e0e0e0';
+            ctx.lineWidth = 5;
+            let barRot = 0;
+            if (tricksTime.bar > 0) barRot = tricksTime.bar * Math.PI; // Визуализация Barspin
+            
+            ctx.save();
+            ctx.translate(35, -6);
+            ctx.rotate(barRot);
+            ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(0, -75); ctx.stroke(); // Стойка
+            // Перекладина и неоновые грипсы руля
+            ctx.strokeStyle = '#ff0055';
+            ctx.beginPath(); ctx.moveTo(-25, -75); ctx.lineTo(25, -75); ctx.stroke();
+            ctx.restore();
+
+            // 2. РАЙДЕР (АНАТОМИЯ И ДВИЖЕНИЯ В МОМЕНТ ТРЮКОВ)
+            ctx.fillStyle = '#111111'; // Стильное оверсайз худи
+            let bodyY = -48;
+            let legX = 0;
+
+            if (tricksTime.foot > 0) legX = Math.sin(tricksTime.foot * Math.PI) * 35; // Анимация No Footer
+
+            ctx.fillRect(-14, bodyY, 28, 42); // Корпус
+            
+            // Ноги райдера
+            ctx.fillStyle = '#00e676';
+            ctx.fillRect(-12 - legX, -10, 8, 12);
+            ctx.fillRect(4 + legX, -10, 8, 12);
+
+            // Голова в шлеме
+            ctx.fillStyle = '#ffeb3b';
+            ctx.beginPath(); ctx.arc(0, -58, 11, 0, Math.PI * 2); ctx.fill();
+
+            ctx.restore();
+            ctx.restore();
+        }
+
+        // --- МОБИЛЬНЫЙ СЕНСОРНЫЙ СЛОЙ ---
+        function initMobileControls() {
+            const pad = document.getElementById('steering-pad');
+            const stick = document.getElementById('joystick');
+            let isMoving = false, startX = 0;
+
+            pad.addEventListener('touchstart', e => { isMoving = true; startX = e.touches[0].clientX; });
+            pad.addEventListener('touchmove', e => {
+                if (!isMoving) return;
+                let dx = e.touches[0].clientX - startX;
+                dx = Math.max(-40, Math.min(40, dx));
+                stick.style.transform = `translateX(${dx}px)`;
+                physics.sideInput = dx / 40;
+            });
+            const stop = () => { isMoving = false; stick.style.transform = 'none'; physics.sideInput = 0; };
+            pad.addEventListener('touchend', stop); pad.addEventListener('touchcancel', stop);
+
+            const jBtn = document.getElementById('m-jump');
+            jBtn.addEventListener('touchstart', () => { if (physics.isGrounded) physics.isCharging = true; });
+            jBtn.addEventListener('touchend', () => {
+                if (physics.isCharging && physics.isGrounded) {
+                    physics.vy = 10 + (physics.jumpCharge * 13);
+                    physics.isGrounded = false; physics.isCharging = false; physics.jumpCharge = 0;
+                    document.getElementById('charge-container').style.display = 'none';
+                }
+            });
+
+            document.getElementById('m-whip').addEventListener('touchstart', () => { if(!physics.isGrounded && !tricksTime.whip) { tricksTime.whip=1; triggerTrick('TAILWHIP', 450); } });
+            document.getElementById('m-bar').addEventListener('touchstart', () => { if(!physics.isGrounded && !tricksTime.bar) { tricksTime.bar=1; triggerTrick('BARSPIN', 350); } });
+            document.getElementById('m-foot').addEventListener('touchstart', () => { if(!physics.isGrounded && !tricksTime.foot) { tricksTime.foot=1; triggerTrick('NO FOOTER', 500); } });
+            document.getElementById('m-bri').addEventListener('touchstart', () => { if(!physics.isGrounded && !tricksTime.bri) { tricksTime.bri=1; triggerTrick('BRI FLIP', 900); } });
+        }
+
+        function endGame() {
+            isGameOver = true;
+            document.getElementById('final-score').innerText = score;
+            document.getElementById('game-over').gridList = "active";
+            document.getElementById('game-over').classList.add('active');
+            if (score > highScore) {
+                highScore = score; localStorage.setItem('v_scoot_best', highScore);
+                document.getElementById('high-val').innerText = highScore;
+            }
+        }
+
+        function resetGame() {
+            physics.x = 0; physics.y = 0; physics.z = 0; physics.vx = 18; physics.vy = 0;
+            physics.isGrounded = true; score = 0; combo = 1.0;
+            document.getElementById('score-val').innerText = "0";
+            document.getElementById('game-over').classList.remove('active');
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
